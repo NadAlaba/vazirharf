@@ -16,7 +16,7 @@ on:
       - master
     paths:
       - website/**
-      - .githug/website.yml
+      - .githug/workflows/website.yml
   release:
     types:
       - published
