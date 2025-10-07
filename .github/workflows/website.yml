@@ -22,7 +22,7 @@ on:
       - published
 
 jobs:
-  build:
+  build-website:
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     defaults:
@@ -42,11 +42,12 @@ jobs:
         with:
           node-version: 22
           cache: 'pnpm'
+          cache-dependency-path: website/pnpm-lock.yaml
 
       - name: Install packages
         run: pnpm install
 
-      - name: Build
+      - name: Build next js
         env:
           NEXT_PUBLIC_TAG_NAME: ${{ github.event.release.tag_name }}
           LATEST_RELEASE_URL: ${{ github.api_url }}/repos/${{ github.repository }}/releases/latest
