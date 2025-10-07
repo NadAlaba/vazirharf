@@ -6,6 +6,11 @@ permissions:
   contents: write
 
 on:
+  pull_request:
+    branches: 
+      - master
+    types:
+      - closed
   push:
     branches:
       - master
@@ -17,6 +22,7 @@ on:
 
 jobs:
   build:
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -24,6 +30,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
       - name: Setup node 22
         uses: actions/setup-node@v5
         with:
