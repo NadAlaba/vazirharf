@@ -16,6 +16,7 @@ on:
       - master
     paths:
       - website/**
+      - '.github/workflows/website.yml'
   release:
     types:
       - published
@@ -57,7 +58,7 @@ jobs:
 
       - name: Init new repo in out folder and commit generated files and push to gh-pages
         env:
-          REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
+          AUTHENTICATED_REPO_URL: https://${{ github.token }}@github.com/${{ github.repository }}.git
         run: |
           cd out/vazirharf
           git init
@@ -65,4 +66,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m 'deploy'
-          git push --force $REPO_URL HEAD:gh-pages
+          git push --force $AUTHENTICATED_REPO_URL HEAD:gh-pages
