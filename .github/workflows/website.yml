@@ -58,7 +58,7 @@ jobs:
 
       - name: Init new repo in out folder and commit generated files and push to gh-pages
         env:
-          AUTHENTICATED_REPO_URL: https://${{ github.token }}@github.com/${{ github.repository }}.git
+          AUTHENTICATED_REPO_URL: https://${{ github.repository_owner }}:${{ github.token }}@github.com/${{ github.repository }}.git
         run: |
           cd out/vazirharf
           git init
